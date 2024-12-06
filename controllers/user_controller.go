@@ -3,26 +3,24 @@ package controllers
 import (
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"task-golang/database"
 	"task-golang/models"
-	"task-golang/utils"
+	"task-golang/services"
 )
 
-func RegisterUser(c echo.Context) error {
-	user := new(models.User)
-	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid data"})
+type UserController struct {
+	UserService *services.UserService
+}
+
+func (ctrl *UserController) Register(c echo.Context) error {
+	req := new(models.User)
+	if err := c.Bind(req); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request"})
 	}
 
-	hashedPassword, err := utils.HashPassword(user.Password)
+	err := ctrl.UserService.Register(req)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not hash password"})
-	}
-	user.Password = hashedPassword
-
-	if err := database.DB.Create(&user).Error; err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not create user"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
-	return c.JSON(http.StatusCreated, user)
+	return c.JSON(http.StatusCreated, map[string]string{"message": "user registered successfully"})
 }
