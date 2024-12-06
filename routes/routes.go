@@ -17,4 +17,6 @@ func SetupRoutes(e *echo.Echo) {
 
 	e.POST("/login", authController.Login)
 	e.POST("/register", userController.Register)
+	e.POST("/recover-password", authController.RecoverPassword)
+	e.POST("/reset-password", authController.ResetPassword)
 }
