@@ -11,6 +11,15 @@ type UserController struct {
 	UserService *services.UserService
 }
 
+func (ctrl *UserController) ListUsers(c echo.Context) error {
+	users, err := ctrl.UserService.ListUsers()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": "could not fetch users"})
+	}
+
+	return c.JSON(http.StatusOK, users)
+}
+
 func (ctrl *UserController) Register(c echo.Context) error {
 	req := new(models.User)
 	if err := c.Bind(req); err != nil {

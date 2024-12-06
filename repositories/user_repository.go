@@ -9,6 +9,15 @@ import (
 
 type UserRepository struct{}
 
+func (r *UserRepository) GetAllUsers() ([]models.User, error) {
+	var users []models.User
+	err := database.DB.Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 func (r *UserRepository) FindByEmail(email string) (*models.User, error) {
 	var user models.User
 	err := database.DB.Where("email = ?", email).First(&user).Error
