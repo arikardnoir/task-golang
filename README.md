@@ -10,6 +10,15 @@ Este projeto é uma **aplicação web construída em Go**, projetada para ser fa
 - **JWT (JSON Web Token)**: Usado para autenticação e autorização segura na aplicação.
 - **Testify**: Biblioteca usada para facilitar a criação de testes automatizados, com suporte a asserções e mocks.
 
+---
+
+## Como Clonar o Repositório
+
+Para começar, clone o repositório para sua máquina local:
+
+      git clone https://github.com/arikardnoir/task-golang
+      cd task-golang
+      
 ### Como Executar o Projeto
 
 Existem duas maneiras de executar este projeto: utilizando **Docker** diretamente ou **Docker Compose**.
@@ -48,3 +57,21 @@ Se você já tem o **Docker** instalado, siga os passos abaixo:
 Após a execução dos comandos acima, a aplicação estará disponível em:
 
 http://localhost:8080
+
+#### 3. **Como Rodar os Testes**
+O projeto inclui testes automatizados para garantir que as funcionalidades principais estão funcionando corretamente. Você pode rodar os testes localmente ou dentro do container Docker.
+
+   #### 1. Rodar os Testes Localmente
+   Se você tiver o Go configurado na sua máquina, rode os testes com o seguinte comando:
+   
+      go test ./..
+
+   #### 2. Rodar os Testes com Docker
+   Se preferir rodar os testes dentro do container Docker, siga os passos abaixo:
+   1 - Execute o container interativamente:
+   
+      docker-compose run app sh
+    
+   2 - Dentro do container, rode os testes:
+
+      go test ./...
