@@ -25,7 +25,7 @@ func (s *UserService) Register(req *models.RegisterRequest) error {
 		return errors.New("email already in use")
 	}
 
-	// Usar o AddressService para buscar os dados do endereço
+	// Use the AddressService to get the address data
 	addressService := AddressService{Provider: provider.ViaCEPProvider{}}
 	address, err := addressService.ValidateAndFetchAddress(req.CEP)
 	if err != nil {
@@ -53,7 +53,7 @@ func (s *UserService) Register(req *models.RegisterRequest) error {
 		return err
 	}
 
-	// Criar o endereço associado ao usuário
+	// Criate the address linked to the user
 	addressEntity := &models.Address{
 		Street:       address.Street,
 		Neighborhood: address.Neighborhood,
