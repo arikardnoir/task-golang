@@ -15,7 +15,7 @@ type UserService struct {
 }
 
 func (s *UserService) ListUsers() ([]models.User, error) {
-	return s.UserRepo.GetAllUsers()
+	return s.UserRepo.GetAllUsersWithAddress()
 }
 
 func (s *UserService) Register(req *models.RegisterRequest) error {

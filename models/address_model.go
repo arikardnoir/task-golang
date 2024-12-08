@@ -1,6 +1,9 @@
 package models
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Address struct {
 	ID           uuid.UUID `gorm:"type:uuid;primaryKey"`
@@ -19,4 +22,9 @@ type AddressData struct {
 	City         string `json:"localidade"`
 	State        string `json:"uf"`
 	Number       string `json:"unidade"`
+}
+
+func (a *Address) BeforeCreate(tx *gorm.DB) (err error) {
+	a.ID = uuid.New()
+	return
 }
