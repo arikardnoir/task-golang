@@ -18,6 +18,15 @@ func (r *UserRepository) GetAllUsers() ([]models.User, error) {
 	return users, nil
 }
 
+func (r *UserRepository) GetAllUsersWithAddress() ([]models.User, error) {
+	var users []models.User
+	err := database.DB.Preload("Address").Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 func (r *UserRepository) FindByEmail(email string) (*models.User, error) {
 	var user models.User
 	err := database.DB.Where("email = ?", email).First(&user).Error

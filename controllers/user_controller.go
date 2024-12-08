@@ -21,11 +21,17 @@ func (ctrl *UserController) ListUsers(c echo.Context) error {
 }
 
 func (ctrl *UserController) Register(c echo.Context) error {
-	req := new(models.User)
+	req := new(models.RegisterRequest)
 	if err := c.Bind(req); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request"})
 	}
 
+	// Validate passwords
+	if req.Password != req.ConfirmPassword {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "passwords do not match"})
+	}
+
+	// Register user with address
 	err := ctrl.UserService.Register(req)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})

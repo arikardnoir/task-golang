@@ -11,11 +11,19 @@ type User struct {
 	Name             string    `gorm:"type:varchar(100);not null"`
 	Email            string    `gorm:"type:varchar(100);unique;not null"`
 	Password         string    `gorm:"type:varchar(100);not null"`
-	Address          string    `gorm:"type:text"`
+	Address          Address   `gorm:"foreignKey:UserID"`
 	RecoveryToken    string    `gorm:"type:varchar(100);"`
 	RecoveryTokenExp time.Time `gorm:"type:datetime;"`
 	CreatedAt        int64     `gorm:"autoCreateTime"`
 	UpdatedAt        int64     `gorm:"autoUpdateTime"`
+}
+
+type RegisterRequest struct {
+	Name            string `json:"name" validate:"required"`
+	Email           string `json:"email" validate:"required,email"`
+	Password        string `json:"password" validate:"required,min=6"`
+	ConfirmPassword string `json:"confirm_password" validate:"required"`
+	CEP             string `json:"cep" validate:"required"`
 }
 
 type LoginRequest struct {
