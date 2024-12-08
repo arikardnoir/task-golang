@@ -1,7 +1,4 @@
 # task-golang
-# Documentação do Projeto
-
-## Descrição do projeto
 
 Este projeto é uma **aplicação web construída em Go**, projetada para ser facilmente implantada utilizando **Docker** ou **Docker Compose**. O objetivo é fornecer um backend simples e escalável para aplicações web, que pode ser executado de forma rápida e isolada em containers.
 
